@@ -89,10 +89,30 @@ export class Grid {
         return new Grid(this.cells)
     }
 
-    resolve(){
-        this.cells = this.cells.map( line => 
-            line.map( cell => cell || 2)
-        )
+    resolve(position = 0): boolean{
+        let grille = this.cells
+        if (position == 9*9)
+            return true;
+    
+        let i = Math.floor(position / 9)
+        let j = position % 9;
+    
+        if (grille[i][j] != 0)
+            return this.resolve(position+1);
+    
+        for (let k=1; k <= 9; k++)
+        {
+            if (this.isPossible(i, j, k))
+            {
+                grille[i][j] = k;
+    
+                if ( this.resolve(position+1) )
+                    return true;
+            }
+        }
+        this.cells[i][j] = 0;
+    
+        return false;
     }
 
     isPossibleOnLine(lineIndex: number, value: number){

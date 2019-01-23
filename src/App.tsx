@@ -34,8 +34,10 @@ export class App extends Component<AppProps, AppState> {
     console.log('input', line, col, value)
     let clone = this.state.grid.clone()
     try {
-      clone.updateCell(line, col, value)
-      this.setState({grid: clone})
+      if(clone.isPossible(line, col, value)){
+        clone.updateCell(line, col, value)
+        this.setState({grid: clone})
+      }
     }
     catch(e){
       console.log('cant add this number')

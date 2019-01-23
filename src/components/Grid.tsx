@@ -26,10 +26,11 @@ export class Grid extends Component<GridProps, GridState> {
                         <tr key={i}>
                             {line.map( (cell, j) => 
                                 <td key={i + '' + j}>
-                                    <input 
+                                    {cell || <input 
                                         value={cell || ''} 
                                         onChange={(e) => this.props.handleModifyCell(i, j, parseInt(e.target.value))}
                                     />
+                                    }
                                 </td>    
                             )}
                         </tr>
